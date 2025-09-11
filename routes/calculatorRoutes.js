@@ -22,14 +22,25 @@ res.json({result:sum})
 // http://localhost:3000/calculator/subtract?num1=_num2=_
 router.get('/subtract', (req, res) => {
     console.log(req.query)
-    // res.send('subtract')
     let number1 = parseInt(req.query.num1)
     let number2 = parseInt(req.query.num2)
-    let difference = number1 + number2
+    let difference = number1 - number2
     console.log('/subtract', difference)
     res.status(200)
     res.json({result: difference})
     })
+
+// http://localhost:3000/calculator/multiply?num1=_num2=_
+router.get('/multiply', (req, res) => {
+    console.log(req.query)
+    let number1 = parseInt(req.query.num1)
+    let number2 = parseInt(req.query.num2)
+    let difference = number1 * number2
+    console.log('/multiply', difference)
+    res.status(200)
+    res.json({result: difference})
+    })
+
 
 module.exports = router;
 
