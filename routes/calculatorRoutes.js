@@ -15,11 +15,21 @@ let number1 = parseInt(req.query.num1)
 let number2 = parseInt(req.query.num2)
 let sum = number1 + number2
 console.log('/add', sum)
-    // console.log(sum)
-    // res.status(200)
-    // res.json({result:sum})
-    // })
+res.status(200)
+res.json({result:sum})
 })
+
+// http://localhost:3000/calculator/subtract?num1=_num2=_
+router.get('/subtract', (req, res) => {
+    console.log(req.query)
+    // res.send('subtract')
+    let number1 = parseInt(req.query.num1)
+    let number2 = parseInt(req.query.num2)
+    let difference = number1 + number2
+    console.log('/subtract', difference)
+    res.status(200)
+    res.json({result: difference})
+    })
 
 module.exports = router;
 
