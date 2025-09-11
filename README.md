@@ -16,9 +16,12 @@ mathematical operations.
 
 Google Searched: 
 
+----------------------------
+Assignment: Exercise 3 Slide 36.
 
-
-
+Instructions: Extend your calculator.html so that it allows the user to access all 4
+server-side calculator routes from Exercise 2 (Add, Multiply, Divide,
+Subtract) via a basic front-end calculator interface.
 
 ========================================
 // console.log(‘hello world’)
