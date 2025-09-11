@@ -35,12 +35,22 @@ router.get('/multiply', (req, res) => {
     console.log(req.query)
     let number1 = parseInt(req.query.num1)
     let number2 = parseInt(req.query.num2)
-    let difference = number1 * number2
-    console.log('/multiply', difference)
+    let product = number1 * number2
+    console.log('/multiply', product)
     res.status(200)
-    res.json({result: difference})
+    res.json({result: product})
     })
 
+    // http://localhost:3000/calculator/divide?num1=_num2=_
+router.get('/divide', (req, res) => {
+    console.log(req.query)
+    let number1 = parseInt(req.query.num1)
+    let number2 = parseInt(req.query.num2)
+    let quotient = number1 / number2
+    console.log('/divide', quotient)
+    res.status(200)
+    res.json({result: quotient})
+    })
 
 module.exports = router;
 
