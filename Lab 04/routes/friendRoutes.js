@@ -19,15 +19,32 @@ router.get('/', (req, res) => {
 
 // filter endpoint, gets friends matching the gender from 'gender' query parameter ie. /friends/filter?gender=male
 // 1. Add support to also filter by a starting 'letter' query parameter ie. /friends/filter?letter=R
+
+// http://localhost:3000/friends/filter?gender=male
+//[{"id":2,"name":"Joey","gender":"male"},{"id":3,"name":"Chandler","gender":"male"},{"id":5,"name":"Ross","gender":"male"}]
+
+// http://localhost:3000/friends/filter?gender=female
+// [{"id":1,"name":"Phoebe","gender":"female"},{"id":4,"name":"Monica","gender":"female"},{"id":6,"name":"Rachael","gender":"female"}]
+
+// http://localhost:3000/friends/filter?letter=R
+// [{"id":5,"name":"Ross","gender":"male"},{"id":6,"name":"Rachael","gender":"female"}]
+
 router.get('/filter', (req, res) => {
     console.log(req.query)
     let filterGender = req.query.gender;
+    let filterLetter = req.query.letter
+    console.log(filterLetter)
     let matchingFriends = [...friends];
 
     if (filterGender) {
-        matchingFriends = matchingFriends.filter(friend => friend.gender == filterGender);
+        matchingFriends = matchingFriends.filter(friend => friend.gender === filterGender);
     }
     
+    if (filterLetter) {
+        matchingFriends = matchingFriends.filter(friend => friend.name.startsWith(filterLetter))
+        console.log('filteLetter', matchingFriends)
+    }
+
     if (matchingFriends.length > 0) {
         // return valid data when the gender matches 
         res.status(200).json(matchingFriends)
