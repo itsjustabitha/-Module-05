@@ -5,7 +5,7 @@ const friends = require('../models/friends')
 
 // TODO - #1: Add support to the 'filter' endpoint for a new query parameter 'letter' which filters friends by starting letter
 
-// TODO - #2: Modify the 'info' route to only return the user-agent, content-type and accept header data
+// TODO - #2: Modify the 'info' route to only return the user-agent --- content-type --- accept header data
 
 // TODO - #3: Modify the dynamic GET route to return a single friend object matching the dynamic 'id' request parameter
 
@@ -56,10 +56,27 @@ router.get('/filter', (req, res) => {
 
 // 2. Get information about this request from the headers
 router.get('/info', (req, res) => {
-    console.log(req.headers)
+    console.log(req.headers["user-agent"]) // want to use bracket notation so that we can use a string!
+    console.log(req.headers["content-type"]) // undefined - so it was ignored! 
+    console.log(req.headers.accept) //doesn't have special character so no need for brackets.
+    
+    // Needs to be packaged in an object OR an array.
+    const headers ={
+        "user-agent": req.headers["user-agent"],
+        "user-agent": req.headers["content-type"],
+        accept: req.headers.accept
+    }
 
     // Modify this response to just return info on the user-agent, content-type and accept headers
+    // res.json(req.headers)  
+    // res.json(req.headers["user-agent"])  // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+    // res.json([req.headers["user-agent"],req.headers["content-type"], req.haders["accept"]]) // wrapped as an array
+    // console.log(req.headers["content-type"]) 
     res.json(req.headers)  
+    // Output: {"host":"localhost:3000","connection":"keep-alive","cache-control":"max-age=0","sec-ch-ua":"\"Not;A=Brand\";v=\"99\", \"Google Chrome\";v=\"139\", \"Chromium\";v=\"139\"","sec-ch-ua-mobile":"?0","sec-ch-ua-platform":"\"macOS\"","upgrade-insecure-requests":"1","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36","accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7","sec-fetch-site":"none","sec-fetch-mode":"navigate","sec-fetch-user":"?1","sec-fetch-dest":"document","accept-encoding":"gzip, deflate, br, zstd","accept-language":"en-US,en;q=0.9"}
+
+
+
 })
 
 // 3. Dynamic request param endpoint - get the friend matching the specific ID ie. /friends/3
