@@ -135,13 +135,44 @@ router.get('/:id', (req, res) => {
 // {"name":"Tommy","gender":"male","id":7}%  
 
 // 4. Complete this new route for a PUT request which will update data for an existing friend
-// router.put('/:id', (req, res) => {
-//     let friendId = req.params.id;
-//     let updatedFriend = req.body;
+router.put('/:id', (req, res) => {
+    //let friendId = req.params.id;
+    let friendId = parseInt(req.params.id); // Convert to number
+    let updatedFriend = req.body;
 
-//     // Replace the old friend data for friendId with the new data from updatedFriend
+    let friendIndex = friends.findIndex(currentFriend => currentFriend.id === friendId);
 
-//     // Modify this response with the updated friend, or a 404 if not found
+    if (friendIndex !== -1) {
+        // Friend found - update data
+        // Keep the original ID, but update name and gender from request body
+        friends[friendIndex] = {
+            id: friendId, // Keep original ID
+            name: updatedFriend.name ? updatedFriend.name : friends[friendIndex].name, // Use new name or keep old
+            gender: updatedFriend.gender ? updatedFriend.gender : friends[friendIndex].gender // Use new gender or keep old
+        };
+        
+        res.status(200).json(friends[friendIndex]);
+    } else {
+        // Friend not found
+        res.status(404).json({error: 'Friend not found with ID ' + friendId});
+    }
+});
+
+// itsjustabitha@Tabithas-Laptop Mod 05 % curl -X PUT http://localhost:3000/friends/1 \
+// >  -H "Content-Type: application/json" \
+// >   -d '{"name": "Phoebe Buffay"}'
+// {"id":1,"name":"Phoebe Buffay","gender":"female"}%                                                                                 
+
+// itsjustabitha@Tabithas-Laptop Mod 05 % curl -X PUT http://localhost:3000/friends/2 \
+// >  -H "Content-Type: application/json" \
+// >  -d '{"name": "Joseph", "gender": "male"}'
+// {"id":2,"name":"Joseph","gender":"male"}%       
+
+
+
+    // Replace the old friend data for friendId with the new data from updatedFriend
+
+    // Modify this response with the updated friend, or a 404 if not found
 //     res.json({result: 'Updated friend with ID ' + friendId, data: updatedFriend})
 // })
 
