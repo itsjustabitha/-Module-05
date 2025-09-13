@@ -20,9 +20,11 @@ Test each of the above with different values, and include some basic data valida
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ** Sources:
--
--
--
+- https://stackoverflow.com/questions/54075457/how-to-map-dynamic-query-parameters-in-spring-boot-restcontroller
+- https://stackoverflow.com/questions/6396101/pure-javascript-send-post-data-without-a-form
+- https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods/POST
+- https://www.postman.com/downloads/
 
 Quesstions:
 -
@@ -30,3 +32,16 @@ Quesstions:
 -
 
 Issues I had:
+-
+-
+-
+-
+-
+
+Things I Googled: 
+- Dynamic request param endpoint
+- post requests javascript
+-
+-
+-
+-
