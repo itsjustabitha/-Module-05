@@ -99,7 +99,7 @@ function getOperationEndpoint(op) {
     switch(op) {
         case '+': return 'add';
         case '-': return 'subtract';
-        case '': return 'multiply';
+        case '*': return 'multiply';
         case '/': return 'divide';
         case '%': return 'modulo';
         default: return null;
@@ -107,13 +107,13 @@ function getOperationEndpoint(op) {
 }
 
 
-getOperationEndpoint('+');  // expect "add"
-
+getOperationEndpoint('+');  // 12
+getOperationEndpoint('-');
 
 
 
 makeApiCall('add', 5, 7).then(console.log); // Answer: 12
-// makeApiCall('subtract', 12, 2).then(console.log); // Answer: 
+makeApiCall('subtract', 12, 2).then(console.log); // Answer: 
 // makeApiCall('multiply', 10, 5).then(console.log); // Answer: 
 // makeApiCall('divide', 10, 2).then(console.log); // calculatorController.divideNumbers
 
@@ -123,6 +123,7 @@ makeApiCall('add', 5, 7).then(console.log); // Answer: 12
 
 // http://localhost:3000/ -- Error: ENOENT: no such file or directory, stat '/Users/itsjustabitha/Desktop/labs/Mod 05/Lab 05/Calculator Code/public/calculatorstuct.html'
 // Files name error. Fixed and the routes are working better.
+// I've been trying to figure out why none of my tests are giving the results that I want.. I only updated addition.
 
 
 
