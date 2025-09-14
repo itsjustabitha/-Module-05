@@ -6,7 +6,6 @@ const addNumbers = (req, res) => {
     res.status(200)
     res.json({result:sum})
     }
-  
 
     const subtractNumbers = (req, res) => {
         let number1 = parseInt(req.query.num1);
@@ -17,11 +16,20 @@ const addNumbers = (req, res) => {
         res.json({ result: difference });
     };
 
-
+    const multiplyNumbers = (req, res) => {
+        let number1 = parseInt(req.query.num1);
+        let number2 = parseInt(req.query.num2);
+        let product = number1 * number2;
+        console.log(product);
+        res.status(200);
+        res.json({ result: product });
+    };
 
 
 
 
     module.exports = {
-        addNumbers
+        addNumbers,
+        subtractNumbers,
+        multiplyNumbers,
         }
