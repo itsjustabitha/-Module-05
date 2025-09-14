@@ -5,6 +5,8 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 
+
+
 // Function to make API calls to my Express server
 // function makeApiCall(operation, num1, num2) {
 //     try {
@@ -80,7 +82,7 @@ async function makeApiCall(operation, num1, num2) {
         const data = await response.json();
         
         if (response.ok) {
-            return data.result; // CORRECT!
+            return data.result; 
         } else {
             alert(data.error || 'An error occurred');
             return null;
@@ -91,6 +93,36 @@ async function makeApiCall(operation, num1, num2) {
         return null;
     }
 }
+
+makeApiCall('add', 5, 7).then(console.log);
+makeApiCall('divide', 10, 0).then(console.log);
+
+// http://localhost:3000/ -- Error: ENOENT: no such file or directory, stat '/Users/itsjustabitha/Desktop/labs/Mod 05/Lab 05/Calculator Code/public/calculatorstuct.html'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

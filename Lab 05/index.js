@@ -22,7 +22,7 @@ app.use('/api/calculator', calculatorRoute);
 
 // Route to serve my calculator HTML file
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Calculator Code/public', 'calculatorstuct.html'));
+    res.sendFile(path.join(__dirname, 'Calculator Code/public', 'calculatorstruct.html'));
 });
 
 // Start the server
