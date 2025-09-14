@@ -1,11 +1,9 @@
-let input = document.getElementById('inputBox');
-let buttons = document.querySelectorAll('button');
+// let input = document.getElementById('inputBox');
+// let buttons = document.querySelectorAll('button');
 
-let firstNumber = "";
-let secondNumber = "";
-let operator = "";
-
-
+// let firstNumber = "";
+// let secondNumber = "";
+// let operator = "";
 
 // Function to make API calls to my Express server
 // function makeApiCall(operation, num1, num2) {
@@ -76,6 +74,87 @@ let operator = "";
 // Network tab shows successful 200 responses
 // Console.log(data) shows: {operation: "addition", num1: 5, num2: 3, result: 8}
 
+// async function makeApiCall(operation, num1, num2) {
+//     try {
+//         const response = await fetch(`/api/calculator/${operation}?num1=${num1}&num2=${num2}`);
+//         const data = await response.json();
+        
+//         if (response.ok) {
+//             return data.result; 
+//         } else {
+//             alert(data.error || 'An error occurred');
+//             return null;
+//         }
+//     } catch (error) {
+//         console.error('API call failed:', error);
+//         alert('Network error occurred');
+//         return null;
+//     }
+// }
+
+// Function to map operators to API endpoints
+// function getOperationEndpoint(op) {
+//     switch(op) {
+//         case '+': return 'add';
+//         case '-': return 'subtract';
+//         case '*': return 'multiply';
+//         case '/': return 'divide';
+//         case '%': return 'modulo';
+//         default: return null;
+//     }
+// }
+
+// makeApiCall('add', 5, 7).then(console.log); 
+// makeApiCall('subtract', 12, 2).then(console.log); 
+// makeApiCall('multiply', 10, 5).then(console.log); 
+// makeApiCall('divide', 10, 2).then(console.log); 
+
+// Answers: 
+// 50
+// 5
+// 12
+// 10
+
+
+// http://localhost:3000/ -- Error: ENOENT: no such file or directory, stat '/Users/itsjustabitha/Desktop/labs/Mod 05/Lab 05/Calculator Code/public/calculatorstuct.html'
+// Files name error. Fixed and the routes are working better.
+// I've been trying to figure out why none of my tests are giving the results that I want.
+// I didn't update all my controls. Only the addition portion. 
+// I was thinking about adding decimals and did a Google search: 
+// - how do I ensure my calculator can calculate decimals in javascript?
+// The side bar AI reccommended parseInt vs parseFloat, I did a little reading but felt it wasn't as important to add decimals right now. I have bigger fish to fry.
+// I was looking for short cuts and I feel like the short cuts only confusee me and made it harder to understand what I'm trying to do. I started to 
+// confuse myself. Instead of using || I'm going back to If Else - it's longer and repetitive but I feel like it's easier for me to grasp.
+
+// // Function to clear everything
+// function clearAll() {
+//     firstNumber = ""; // Reset the first number to empty string
+//     secondNumber = ""; // Reset the second number to empty string  
+//     operator = ""; // Reset to empty string  
+//     input.value = ""; // Reset to empty string  
+// }
+// buttons.forEach(button => {
+//     button.addEventListener('click', async function() {
+//         let buttonText = button.innerHTML;
+//         // If it's a number or decimal point
+//         if (buttonText >= '0' && buttonText <= '9' || buttonText === '.' || buttonText === '00') {
+//             input.value += buttonText;
+//         }
+
+
+
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+let input = document.getElementById('inputBox');
+let buttons = document.querySelectorAll('button');
+
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
+
+
+
 async function makeApiCall(operation, num1, num2) {
     try {
         const response = await fetch(`/api/calculator/${operation}?num1=${num1}&num2=${num2}`);
@@ -105,39 +184,59 @@ function getOperationEndpoint(op) {
         default: return null;
     }
 }
+// Test getOperationEndpoint function
+console.log(getOperationEndpoint('+')); // Should return 'add'
+console.log(getOperationEndpoint('*')); // Should return 'multiply' 
+console.log(getOperationEndpoint('/')); // Should return 'divide'
+console.log(getOperationEndpoint('weird')); // Should return null
+
+makeApiCall('add', 5, 7).then(result => console.log('Add result:', result));
+makeApiCall('subtract', 12, 2).then(result => console.log('Subtract result:', result));
+makeApiCall('multiply', 10, 5).then(result => console.log('Multiply result:', result));
+makeApiCall('divide', 10, 2).then(result => console.log('Divide result:', result));
 
 
-getOperationEndpoint('+');  // 12
-getOperationEndpoint('-');
+// Function to clear everything
+function clearAll() {
+    firstNumber = ""; // Reset the first number to empty string
+    secondNumber = ""; // Reset the second number to empty string  
+    operator = ""; // Reset to empty string  
+    input.value = ""; // Reset to empty string  
+}
 
+buttons.forEach(button => {
+    button.addEventListener('click', async function() {
+        let buttonText = button.innerHTML;
+        
+        // Handle individual digits (0-9)
+        if (buttonText >= '0' && buttonText <= '9') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        // Handle decimal point
+        else if (buttonText === '.') {
+            input.value += buttonText;
+            console.log('Added decimal point');
+        }
+        // Handle double zero
+        else if (buttonText === '00') {
+            input.value += buttonText;
+            console.log('Added double zero');
+        }
+    });
+});
+  
+    // What I Can Test Right Now
 
-
-makeApiCall('add', 5, 7).then(console.log); // Answer: 12
-makeApiCall('subtract', 12, 2).then(console.log); // Answer: 
-// makeApiCall('multiply', 10, 5).then(console.log); // Answer: 
-// makeApiCall('divide', 10, 2).then(console.log); // calculatorController.divideNumbers
-
-
-
-
-
-// http://localhost:3000/ -- Error: ENOENT: no such file or directory, stat '/Users/itsjustabitha/Desktop/labs/Mod 05/Lab 05/Calculator Code/public/calculatorstuct.html'
-// Files name error. Fixed and the routes are working better.
-// I've been trying to figure out why none of my tests are giving the results that I want.. I only updated addition.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // - Number input (0-9, ., 00)
+    // - Clear function (AC button)
+    // - The getOperationEndpoint() function
+    // - The makeApiCall() function with 'add' (since that's the only controller I have)
+        
+    // What I can't
+        
+    // - Subtract, multiply, divide, modulo operations (controllers missing)
+    // - Full calculator workflow (missing operator and equals handling)
 
 
 
@@ -166,4 +265,3 @@ makeApiCall('subtract', 12, 2).then(console.log); // Answer:
 // If clear button is pressed
 
 // If delete button is pressed
-

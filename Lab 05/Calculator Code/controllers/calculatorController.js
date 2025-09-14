@@ -26,10 +26,25 @@ const addNumbers = (req, res) => {
     };
 
 
-
+    const divideNumbers = (req, res) => {
+        let number1 = parseInt(req.query.num1);
+        let number2 = parseInt(req.query.num2);
+    
+        if (number2 === 0) {
+            console.log("Error: divide by zero");
+            res.status(400);
+            return res.json({ error: "Cannot divide by zero" });
+        }
+    
+        let quotient = number1 / number2;
+        console.log(quotient);
+        res.status(200);
+        res.json({ result: quotient });
+    };
 
     module.exports = {
         addNumbers,
         subtractNumbers,
         multiplyNumbers,
+        divideNumbers
         }
