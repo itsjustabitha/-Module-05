@@ -223,6 +223,11 @@ buttons.forEach(button => {
             input.value += buttonText;
             console.log('Added double zero');
         }
+        else if (buttonText === '+') {
+            firstNumber = input.value;
+            operator = buttonText;
+            input.value = "";
+            console.log('Selected addition operator');
     });
 });
   
@@ -238,7 +243,7 @@ buttons.forEach(button => {
     // - Subtract, multiply, divide, modulo operations (controllers missing)
     // - Full calculator workflow (missing operator and equals handling)
 
-
+// TESTING: http://localhost:3000/api/calculator/add?num1=5&num2=3 // {"result":8}
 
 
 

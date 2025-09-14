@@ -42,9 +42,26 @@ const addNumbers = (req, res) => {
         res.json({ result: quotient });
     };
 
+    const moduloNumbers = (req, res) => {
+        let number1 = parseInt(req.query.num1);
+        let number2 = parseInt(req.query.num2);
+        
+        if (number2 === 0) {
+            console.log("Error: modulo by zero");
+            res.status(400);
+            return res.json({ error: "Cannot perform modulo by zero" });
+        }
+        
+        let remainder = number1 % number2;
+        console.log(remainder);
+        res.status(200);
+        res.json({ result: remainder });
+    };
+
     module.exports = {
         addNumbers,
         subtractNumbers,
         multiplyNumbers,
-        divideNumbers
+        divideNumbers,
+        moduloNumbers,
         }
