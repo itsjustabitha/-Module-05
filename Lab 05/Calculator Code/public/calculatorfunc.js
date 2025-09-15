@@ -104,10 +104,16 @@
 //     }
 // }
 
-// makeApiCall('add', 5, 7).then(console.log); 
-// makeApiCall('subtract', 12, 2).then(console.log); 
-// makeApiCall('multiply', 10, 5).then(console.log); 
-// makeApiCall('divide', 10, 2).then(console.log); 
+// Test getOperationEndpoint function
+// console.log(getOperationEndpoint('+')); // Should return 'add'
+// console.log(getOperationEndpoint('*')); // Should return 'multiply' 
+// console.log(getOperationEndpoint('/')); // Should return 'divide'
+// console.log(getOperationEndpoint('weird')); // Should return null
+
+// makeApiCall('add', 5, 7).then(result => console.log('Add result:', result));
+// makeApiCall('subtract', 12, 2).then(result => console.log('Subtract result:', result));
+// makeApiCall('multiply', 10, 5).then(result => console.log('Multiply result:', result));
+// makeApiCall('divide', 10, 2).then(result => console.log('Divide result:', result));
 
 // Answers: 
 // 50
@@ -263,6 +269,25 @@
 // appendDoubleZero();
 // console.log("Result:", input.value); 
 
+
+// input.value = "";
+// appendDoubleZero();
+// console.log("Result:", input.value);  // Console: 0 Terminal: nothing.
+
+// input.value = "5";
+// appendDoubleZero();
+// console.log("Result:", input.value); // Console: 500 Terminal: 50
+
+// input.value = "123";
+// appendDoubleZero();
+// console.log("Result:", input.value); // Console: 12300  Terminal: Nothing ????
+
+// // Not understanding the difference between my console and my terminal. My terminal is showing different results than my console. 
+
+// input.value = "0";
+// appendDoubleZero();
+// console.log("Result:", input.value); // Console:000   Terminal: Nothing. - why is this result 000???
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 let input = document.getElementById('inputBox');
@@ -271,7 +296,6 @@ let buttons = document.querySelectorAll('button');
 let firstNumber = "";
 let secondNumber = "";
 let operator = "";
-
 
 
 async function makeApiCall(operation, num1, num2) {
@@ -303,16 +327,6 @@ function getOperationEndpoint(op) {
         default: return null;
     }
 }
-// Test getOperationEndpoint function
-console.log(getOperationEndpoint('+')); // Should return 'add'
-console.log(getOperationEndpoint('*')); // Should return 'multiply' 
-console.log(getOperationEndpoint('/')); // Should return 'divide'
-console.log(getOperationEndpoint('weird')); // Should return null
-
-makeApiCall('add', 5, 7).then(result => console.log('Add result:', result));
-makeApiCall('subtract', 12, 2).then(result => console.log('Subtract result:', result));
-makeApiCall('multiply', 10, 5).then(result => console.log('Multiply result:', result));
-makeApiCall('divide', 10, 2).then(result => console.log('Divide result:', result));
 
 
 // Function to clear everything
@@ -327,17 +341,17 @@ buttons.forEach(button => {
     button.addEventListener('click', async function() {
         let buttonText = button.innerHTML;
         
-        // Handle individual digits (0-9)
+        // Handle individual digits (0-9):
         if (buttonText >= '0' && buttonText <= '9') {
             input.value += buttonText;
             console.log('Added number:', buttonText);
         }
-        // Handle decimal point
+        // Handle decimal point:
         else if (buttonText === '.') {
             input.value += buttonText;
             console.log('Added decimal point');
         }
-        // Handle double zero
+        // Handle double zero:
         else if (buttonText === '00') {
             input.value += buttonText;
             console.log('Added double zero');
@@ -382,7 +396,7 @@ function setOperator(op) {
   input.value += '.';
 }   
 
-  // block multiple dots in the same chunk
+  // block multiple dots in the same chunk:
   if (input.value.indexOf(".") === -1) {
     input.value = input.value + ".";
   }
@@ -395,24 +409,18 @@ function setOperator(op) {
     input.value = input.value + "00";
   }
 
+  // Backspace:
+  function backspace() {
+    input.value = input.value.slice(0, -1);
+  }
 
-input.value = "";
-appendDoubleZero();
-console.log("Result:", input.value);  // Console: 0 Terminal: nothing.
+  // TESTING:
+input.value = "12345";
+backspace();
+console.log("Result:", input.value); // Console Results:  1234 Terminal Results: Nothing
 
-input.value = "5";
-appendDoubleZero();
-console.log("Result:", input.value); // Console: 500 Terminal: 50
-
-input.value = "123";
-appendDoubleZero();
-console.log("Result:", input.value); // Console: 12300  Terminal: Nothing ????
-
-// Not understanding the difference between my console and my terminal. My terminal is showing different results than my console. 
-
-input.value = "0";
-appendDoubleZero();
-console.log("Result:", input.value); // Console:000   Terminal: Nothing. - why is this result 000???
+//Uncaught SyntaxError: Identifier 'input' has already been declared (at calculatorfunc.js:424:5)
+// I made a few errors here, I redeclared Let, so I wasn't getting any resuslts.
 
 
 
