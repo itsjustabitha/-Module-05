@@ -317,6 +317,140 @@
 
 
 
+// buttons.forEach(button => {
+//     button.addEventListener('click', async function() {
+//         let buttonText = button.innerHTML;
+        
+//         // Numbers - checks for each digit
+//         if (buttonText === '0') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '1') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '2') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '3') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '4') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '5') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '6') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '7') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '8') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         else if (buttonText === '9') {
+//             input.value += buttonText;
+//             console.log('Added number:', buttonText);
+//         }
+//         // Decimal point
+//         else if (buttonText === '.') {
+//             appendDot();
+//             console.log('Added decimal point');
+//         }
+//         // Double zero
+//         else if (buttonText === '00') {
+//             appendDoubleZero();
+//             console.log('Added double zero');
+//         }
+//         // Individual operator checks
+//         else if (buttonText === '+') {
+//             setOperator(buttonText);
+//             console.log('Operator selected:', buttonText);
+//         }
+//         else if (buttonText === '-') {
+//             setOperator(buttonText);
+//             console.log('Operator selected:', buttonText);
+//         }
+//         else if (buttonText === '*') {
+//             setOperator(buttonText);
+//             console.log('Operator selected:', buttonText);
+//         }
+//         else if (buttonText === '/') {
+//             setOperator(buttonText);
+//             console.log('Operator selected:', buttonText);
+//         }
+//         else if (buttonText === '%') {
+//             setOperator(buttonText);
+//             console.log('Operator selected:', buttonText);
+//         }
+//         // Equals
+//         else if (buttonText === '=') {
+//             handleEquals();
+//         }
+//         // Clear
+//         else if (buttonText === 'AC') {
+//             clearAll();
+//             console.log('Calculator cleared');
+//         }
+//         // Delete
+//         else if (buttonText === 'DEL') {
+//             backspace();
+//             console.log('Deleted last character');
+//         }
+//         // Catch any unhandled buttons
+//         else {
+//             console.log('Unknown button:', buttonText);
+//         }
+//     });
+// });
+  
+
+
+// // Testing: 
+// // Console:
+// Added number: 1
+// Added number: 2
+// Added number: 3
+// Added number: 4
+// Added number: 5
+// Added number: 6
+// Added number: 7
+// Added number: 8
+// Added number: 9
+// Added number: 0
+// Added double zero
+// Operator selected: +
+// Operator selected: -
+// Operator selected: *
+// Operator selected: /
+// Operator selected: %
+// Deleted last character
+// Calculator cleared
+
+
+// Should I handle repeated operators? Like if someone clicks "+" then "-"?
+// What about edge cases? Like clicking "=" right after an operator?
+// Do I need validation? Like preventing multiple decimal points?
+// Missing =, AC, DEL, and some other operators... Need to update buttons before I can continue.
+// calculatorfunc.js:298 Uncaught ReferenceError: Cannot access 'input' before initialization at calculatorfunc.js:298:1
+// Struggling with simple debugging.. I need to reroute, I have buttons that are missing. 
+
+
+// I used a long if / else if / else chain for each button because that’s the clearest way for me to think right now. 
+// When I tried to be clever with || and &&, I honestly started confusing myself, cut corners, and created bugs I couldn’t trace. 
+// The longer way lets me see exactly which case runs, add a quick console.log, and set a breakpoint on that one path. MDN and javascript.info both teach plain if/else as the default for control flow, and freeCodeCamp encourages beginners to keep conditionals explicit before getting fancy. 
+// Style guides like Google and Airbnb also favor clarity. For me, the “long way” is the better way—clear, debuggable, and honest about where I am in my learning.
+
 
 
 
@@ -468,43 +602,6 @@ buttons.forEach(button => {
 });
   
 
-
-// // Testing: 
-// // Console:
-// Added number: 1
-// Added number: 2
-// Added number: 3
-// Added number: 4
-// Added number: 5
-// Added number: 6
-// Added number: 7
-// Added number: 8
-// Added number: 9
-// Added number: 0
-// Added double zero
-// Operator selected: +
-// Operator selected: -
-// Operator selected: *
-// Operator selected: /
-// Operator selected: %
-// Deleted last character
-// Calculator cleared
-
-
-
-// Should I handle repeated operators? Like if someone clicks "+" then "-"?
-// What about edge cases? Like clicking "=" right after an operator?
-// Do I need validation? Like preventing multiple decimal points?
-// Missing =, AC, DEL, and some other operators... Need to update buttons before I can continue.
-// calculatorfunc.js:298 Uncaught ReferenceError: Cannot access 'input' before initialization at calculatorfunc.js:298:1
-// Struggling with simple debugging.. I need to reroute, I have buttons that are missing. 
-
-
-// I used a long if / else if / else chain for each button because that’s the clearest way for me to think right now. 
-// When I tried to be clever with || and &&, I honestly started confusing myself, cut corners, and created bugs I couldn’t trace. 
-// The longer way lets me see exactly which case runs, add a quick console.log, and set a breakpoint on that one path. MDN and javascript.info both teach plain if/else as the default for control flow, and freeCodeCamp encourages beginners to keep conditionals explicit before getting fancy. 
-// Style guides like Google and Airbnb also favor clarity. For me, the “long way” is the better way—clear, debuggable, and honest about where I am in my learning.
-
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 function setOperator(op) {
@@ -557,11 +654,35 @@ function setOperator(op) {
 
 
 
+  function handleEquals() {
+    console.log("handleEquals() called");
+    console.log("Current state:", { firstNumber, operator, secondNumber: input.value });
+     
+     if (operator === "") {
+      console.log("No operator selected");
+      alert("Choose an operator first.");
+     } else {
+       console.log("Operator found:", operator);
+     }
+ }
 
 
 
-
-
+// Console:
+// Added number: 1
+// Operator selected: +
+// Added number: 5
+// chandleEquals() called
+// Current state: {firstNumber: '.1', operator: '+', secondNumber: '5'}
+// Operator found: +
+//  Calculator cleared
+// Deleted last character
+// Added number: 9
+// Operator selected: +
+// Added number: 5
+// handleEquals() called
+// Current state: {firstNumber: '9', operator: '+', secondNumber: '5'}
+// Operator found: +
 
 
 
@@ -569,28 +690,3 @@ function setOperator(op) {
 // Console Results:   Terminal Results: 
 // Console Results:   Terminal Results: 
 // Console Results:   Terminal Results: 
-
-
-
-
-
-
-
-
-
-
-
-
-// Function to do the math
-
-// Function to clear everything
-
-// If it's a number or decimal point
-        
-// If it's an operator
-
-// If equals button is pressed
-
-// If clear button is pressed
-
-// If delete button is pressed
