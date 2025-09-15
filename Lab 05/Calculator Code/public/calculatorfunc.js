@@ -228,7 +228,8 @@ buttons.forEach(button => {
             operator = buttonText;
             input.value = "";
             console.log('Selected addition operator');
-    });
+        }
+    }); 
 });
   
     // What I Can Test Right Now
@@ -243,9 +244,32 @@ buttons.forEach(button => {
     // - Subtract, multiply, divide, modulo operations (controllers missing)
     // - Full calculator workflow (missing operator and equals handling)
 
-// TESTING: http://localhost:3000/api/calculator/add?num1=5&num2=3 // {"result":8}
+    // TESTING: http://localhost:3000/api/calculator/add?num1=5&num2=3 // {"result":8}
 
+function setOperator(op) {
+    // if user hits operator with empty display, assume 0 so firstNumber is valid
+    if (input.value === "") {
+      input.value = "0";
+    }
+  
+    firstNumber = input.value; // stash the left operand
+    operator = op;            // remember which operator was chosen
+    input.value = "";         // clear for entering the right operand
+  }
 
+//Testing Issues: Under inspect and console, I'm getting: Uncaught SyntaxError: Unexpected token ')' 
+// I was missing a closing bracet } and added an additional one else where. Finally working. 
+// Numbers now working.
+// Inspect/console Output:
+
+// calculatorfunc.js:188 add
+// calculatorfunc.js:189 multiply
+// calculatorfunc.js:190 divide
+// calculatorfunc.js:191 null
+// calculatorfunc.js:195 Multiply result: 50
+// calculatorfunc.js:193 Add result: 12
+// calculatorfunc.js:194 Subtract result: 10
+// calculatorfunc.js:196 Divide result: 5
 
 
 

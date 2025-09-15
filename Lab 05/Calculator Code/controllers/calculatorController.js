@@ -25,7 +25,6 @@ const addNumbers = (req, res) => {
         res.json({ result: product });
     };
 
-
     const divideNumbers = (req, res) => {
         let number1 = parseInt(req.query.num1);
         let number2 = parseInt(req.query.num2);
