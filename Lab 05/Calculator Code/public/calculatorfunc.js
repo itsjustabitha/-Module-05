@@ -181,6 +181,43 @@
     // calculatorfunc.js:196 Divide result: 5
 
 
+
+
+    // function appendDot() {
+    //     // start with 0. if empty
+    //     if (input.value === "") {
+    //       input.value = "0.";
+    //       return;
+    //     }
+    
+    //     if (input.value.includes('.')) {
+    //         return; // already has a decimal point, do nothing
+    //       }
+    
+    //      // add the decimal point
+    //   input.value += '.';
+    // }   
+
+
+    // Issues in inspect/console: calculatorfunc.js:167 Uncaught SyntaxError: Unexpected token '}' (at calculatorfunc.js:167:7)
+// I had a cutly bracet that wasn't commented out. 
+// Updated Console Output: 
+// calculatorfunc.js:226 multiply
+// calculatorfunc.js:227 divide
+// calculatorfunc.js:228 null
+// calculatorfunc.js:230 Add result: 12
+// calculatorfunc.js:233 Divide result: 5
+// calculatorfunc.js:231 Subtract result: 10
+// calculatorfunc.js:232 Multiply result: 50
+// Terminal Output:
+// Calculator app listening at http://localhost:3000
+// 12
+// 5
+// 10
+// 50
+
+
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 let input = document.getElementById('inputBox');
@@ -300,23 +337,29 @@ function setOperator(op) {
   input.value += '.';
 }   
 
+  // block multiple dots in the same chunk
+  if (input.value.indexOf(".") === -1) {
+    input.value = input.value + ".";
+  }
 
-// Issues in inspect/console: calculatorfunc.js:167 Uncaught SyntaxError: Unexpected token '}' (at calculatorfunc.js:167:7)
-// I had a cutly bracet that wasn't commented out. 
-// Updated Console Output: 
-// calculatorfunc.js:226 multiply
-// calculatorfunc.js:227 divide
-// calculatorfunc.js:228 null
-// calculatorfunc.js:230 Add result: 12
-// calculatorfunc.js:233 Divide result: 5
-// calculatorfunc.js:231 Subtract result: 10
-// calculatorfunc.js:232 Multiply result: 50
-// Terminal Output:
+// prevents users from adding multiple decimal points to the same number
+// using indexOf(".") to check if there's already a decimal point.
+// no decimal point (indexOf returns -1), then I concatenate a "." to the current input value
+// Uncaught SyntaxError: Unexpected token '}' (at calculatorfunc.js:344:1) - had another }. 
+//numbers and decimal point is working. addition is working but my clear, -, *, /, and % are not working yet. 
+// OutPut:
 // Calculator app listening at http://localhost:3000
-// 12
 // 5
+// 12
 // 10
 // 50
+// 12
+// 10
+// 50
+// 5
+
+
+
 
 
 
