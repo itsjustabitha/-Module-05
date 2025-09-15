@@ -238,6 +238,31 @@
 // 50
 // 5
 
+
+// function appendDoubleZero() {
+//     if (input.value === "") {
+//       input.value = "0";
+//       return;
+//     }
+//     input.value = input.value + "00";
+//   }
+
+//   "00" button on the calculator
+//   the display is empty, it just shows "0" 
+//   If someone clicks "00" on an empty calculator, showing just "0" is correct behavior. But if they have "123" and click "00", it becomes "12300".
+// TESTED in calculator:  adds the double 00 but still inscludes my decimal point. Not what I want. How do I remove the decimal point? (.00)
+// Testing in terminal:Calculator app listening at http://localhost:3000
+// 12
+// 10
+// 50
+// 5
+// Testing in console:  Added number: 00 calculatorfunc.js:308
+
+
+// input.value = "";
+// appendDoubleZero();
+// console.log("Result:", input.value); 
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 let input = document.getElementById('inputBox');
@@ -370,21 +395,27 @@ function setOperator(op) {
     input.value = input.value + "00";
   }
 
-//   "00" button on the calculator
-//   the display is empty, it just shows "0" 
-//   If someone clicks "00" on an empty calculator, showing just "0" is correct behavior. But if they have "123" and click "00", it becomes "12300".
-// TESTED in calculator:  adds the double 00 but still inscludes my decimal point. Not what I want. How do I remove the decimal point? (.00)
-// Testing in terminal:Calculator app listening at http://localhost:3000
-// 12
-// 10
-// 50
-// 5
-// Testing in console:  Added number: 00 calculatorfunc.js:308
-
 
 input.value = "";
 appendDoubleZero();
 console.log("Result:", input.value); 
+
+input.value = "5";
+appendDoubleZero();
+console.log("Result:", input.value); // Console: calculatorfunc.js:314 Multiply result: 50 Terminal 50
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Function to do the math
