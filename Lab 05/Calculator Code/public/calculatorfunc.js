@@ -141,7 +141,44 @@
 //             input.value += buttonText;
 //         }
 
+   // What I Can Test Right Now
 
+    // - Number input (0-9, ., 00)
+    // - Clear function (AC button)
+    // - The getOperationEndpoint() function
+    // - The makeApiCall() function with 'add' (since that's the only controller I have)
+        
+    // What I can't
+        
+    // - Subtract, multiply, divide, modulo operations (controllers missing)
+    // - Full calculator workflow (missing operator and equals handling)
+
+    // TESTING: http://localhost:3000/api/calculator/add?num1=5&num2=3 // {"result":8}
+
+    // function setOperator(op) {
+    //     // if user hits operator with empty display, assume 0 so firstNumber is valid
+    //     if (input.value === "") {
+    //       input.value = "0";
+    //     }
+      
+    //     firstNumber = input.value; // stash the left operand
+    //     operator = op;            // remember which operator was chosen
+    //     input.value = "";         // clear for entering the right operand
+    //  }
+    
+    //Testing Issues: Under inspect and console, I'm getting: Uncaught SyntaxError: Unexpected token ')' 
+    // I was missing a closing bracet } and added an additional one else where. Finally working. 
+    // Numbers now working.
+    // Inspect/console Output:
+    
+    // calculatorfunc.js:188 add
+    // calculatorfunc.js:189 multiply
+    // calculatorfunc.js:190 divide
+    // calculatorfunc.js:191 null
+    // calculatorfunc.js:195 Multiply result: 50
+    // calculatorfunc.js:193 Add result: 12
+    // calculatorfunc.js:194 Subtract result: 10
+    // calculatorfunc.js:196 Divide result: 5
 
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -232,19 +269,6 @@ buttons.forEach(button => {
     }); 
 });
   
-    // What I Can Test Right Now
-
-    // - Number input (0-9, ., 00)
-    // - Clear function (AC button)
-    // - The getOperationEndpoint() function
-    // - The makeApiCall() function with 'add' (since that's the only controller I have)
-        
-    // What I can't
-        
-    // - Subtract, multiply, divide, modulo operations (controllers missing)
-    // - Full calculator workflow (missing operator and equals handling)
-
-    // TESTING: http://localhost:3000/api/calculator/add?num1=5&num2=3 // {"result":8}
 
 function setOperator(op) {
     // if user hits operator with empty display, assume 0 so firstNumber is valid
@@ -257,25 +281,42 @@ function setOperator(op) {
     input.value = "";         // clear for entering the right operand
   }
 
-//Testing Issues: Under inspect and console, I'm getting: Uncaught SyntaxError: Unexpected token ')' 
-// I was missing a closing bracet } and added an additional one else where. Finally working. 
-// Numbers now working.
-// Inspect/console Output:
+  function appendDigit(d) {
+    input.value = input.value + d;
+  }
+  
+  function appendDot() {
+    // start with 0. if empty
+    if (input.value === "") {
+      input.value = "0.";
+      return;
+    }
 
-// calculatorfunc.js:188 add
-// calculatorfunc.js:189 multiply
-// calculatorfunc.js:190 divide
-// calculatorfunc.js:191 null
-// calculatorfunc.js:195 Multiply result: 50
-// calculatorfunc.js:193 Add result: 12
-// calculatorfunc.js:194 Subtract result: 10
-// calculatorfunc.js:196 Divide result: 5
+    if (input.value.includes('.')) {
+        return; // already has a decimal point, do nothing
+      }
+
+     // add the decimal point
+  input.value += '.';
+}   
 
 
-
-
-
-
+// Issues in inspect/console: calculatorfunc.js:167 Uncaught SyntaxError: Unexpected token '}' (at calculatorfunc.js:167:7)
+// I had a cutly bracet that wasn't commented out. 
+// Updated Console Output: 
+// calculatorfunc.js:226 multiply
+// calculatorfunc.js:227 divide
+// calculatorfunc.js:228 null
+// calculatorfunc.js:230 Add result: 12
+// calculatorfunc.js:233 Divide result: 5
+// calculatorfunc.js:231 Subtract result: 10
+// calculatorfunc.js:232 Multiply result: 50
+// Terminal Output:
+// Calculator app listening at http://localhost:3000
+// 12
+// 5
+// 10
+// 50
 
 
 
