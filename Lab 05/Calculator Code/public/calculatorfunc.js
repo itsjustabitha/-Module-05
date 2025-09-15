@@ -422,7 +422,23 @@ console.log("Result:", input.value); // Console Results:  1234 Terminal Results:
 //Uncaught SyntaxError: Identifier 'input' has already been declared (at calculatorfunc.js:424:5)
 // I made a few errors here, I redeclared Let, so I wasn't getting any resuslts.
 
+input.value = "7";
+backspace();
+console.log("Result:", input.value); // Console Results: Empty  Terminal Results: Empty
 
+
+
+
+
+
+
+
+
+
+// Console Results:   Terminal Results: 
+// Console Results:   Terminal Results: 
+// Console Results:   Terminal Results: 
+// Console Results:   Terminal Results: 
 
 
 
