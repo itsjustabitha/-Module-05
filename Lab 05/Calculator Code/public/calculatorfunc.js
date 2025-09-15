@@ -217,6 +217,26 @@
 // 50
 
 
+  // block multiple dots in the same chunk
+//   if (input.value.indexOf(".") === -1) {
+//     input.value = input.value + ".";
+//   }
+
+// prevents users from adding multiple decimal points to the same number
+// using indexOf(".") to check if there's already a decimal point.
+// no decimal point (indexOf returns -1), then I concatenate a "." to the current input value
+// Uncaught SyntaxError: Unexpected token '}' (at calculatorfunc.js:344:1) - had another }. 
+//numbers and decimal point is working. addition is working but my clear, -, *, /, and % are not working yet. 
+// OutPut:
+// Calculator app listening at http://localhost:3000
+// 5
+// 12
+// 10
+// 50
+// 12
+// 10
+// 50
+// 5
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -342,27 +362,29 @@ function setOperator(op) {
     input.value = input.value + ".";
   }
 
-// prevents users from adding multiple decimal points to the same number
-// using indexOf(".") to check if there's already a decimal point.
-// no decimal point (indexOf returns -1), then I concatenate a "." to the current input value
-// Uncaught SyntaxError: Unexpected token '}' (at calculatorfunc.js:344:1) - had another }. 
-//numbers and decimal point is working. addition is working but my clear, -, *, /, and % are not working yet. 
-// OutPut:
-// Calculator app listening at http://localhost:3000
-// 5
+  function appendDoubleZero() {
+    if (input.value === "") {
+      input.value = "0";
+      return;
+    }
+    input.value = input.value + "00";
+  }
+
+//   "00" button on the calculator
+//   the display is empty, it just shows "0" 
+//   If someone clicks "00" on an empty calculator, showing just "0" is correct behavior. But if they have "123" and click "00", it becomes "12300".
+// TESTED in calculator:  adds the double 00 but still inscludes my decimal point. Not what I want. How do I remove the decimal point? (.00)
+// Testing in terminal:Calculator app listening at http://localhost:3000
 // 12
 // 10
 // 50
-// 12
-// 10
-// 50
 // 5
+// Testing in console:  Added number: 00 calculatorfunc.js:308
 
 
-
-
-
-
+input.value = "";
+appendDoubleZero();
+console.log("Result:", input.value); 
 
 
 // Function to do the math
