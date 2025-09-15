@@ -406,10 +406,13 @@ console.log("Result:", input.value); // Console: 500 Terminal: 50
 
 input.value = "123";
 appendDoubleZero();
-console.log("Result:", input.value); // Console: 12300  Terminal: ????
+console.log("Result:", input.value); // Console: 12300  Terminal: Nothing ????
 
 // Not understanding the difference between my console and my terminal. My terminal is showing different results than my console. 
 
+input.value = "0";
+appendDoubleZero();
+console.log("Result:", input.value); // Console:000   Terminal: Nothing. - why is this result 000???
 
 
 
