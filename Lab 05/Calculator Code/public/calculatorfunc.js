@@ -398,11 +398,17 @@ function setOperator(op) {
 
 input.value = "";
 appendDoubleZero();
-console.log("Result:", input.value); 
+console.log("Result:", input.value);  // Console: 0 Terminal: nothing.
 
 input.value = "5";
 appendDoubleZero();
-console.log("Result:", input.value); // Console: calculatorfunc.js:314 Multiply result: 50 Terminal 50
+console.log("Result:", input.value); // Console: 500 Terminal: 50
+
+input.value = "123";
+appendDoubleZero();
+console.log("Result:", input.value); // Console: 12300  Terminal: ????
+
+// Not understanding the difference between my console and my terminal. My terminal is showing different results than my console. 
 
 
 
