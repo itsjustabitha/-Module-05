@@ -222,8 +222,7 @@
 // 10
 // 50
 
-
-  // block multiple dots in the same chunk
+// block multiple dots in the same chunk
 //   if (input.value.indexOf(".") === -1) {
 //     input.value = input.value + ".";
 //   }
@@ -288,6 +287,40 @@
 // appendDoubleZero();
 // console.log("Result:", input.value); // Console:000   Terminal: Nothing. - why is this result 000???
 
+
+//   Backspace:
+//   function backspace() {
+//     input.value = input.value.slice(0, -1);
+//   }
+
+// TESTING:
+// input.value = "12345";
+// backspace();
+// console.log("Result:", input.value); // Console Results:  1234 Terminal Results: Empty
+
+// Uncaught SyntaxError: Identifier 'input' has already been declared (at calculatorfunc.js:424:5)
+// I made a few errors here, I redeclared Let, so I wasn't getting any resuslts.
+
+// input.value = "7";
+// backspace();
+// console.log("Result:", input.value); // Console Results: Empty  Terminal Results: Empty
+
+// input.value = "";
+// backspace();
+// console.log("Result:", input.value);  // Console Results: Empty  Terminal Results: Empty
+
+
+// I'm noticing some problems, my first issue is that my display is empty after backspace
+// When I backspace the last digit (like going from "7" to ""), most calculators show "0" instead of completely empty. 
+// My function leaves it empty.
+
+
+
+
+
+
+
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 let input = document.getElementById('inputBox');
@@ -297,7 +330,7 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 
-
+// Functions:
 async function makeApiCall(operation, num1, num2) {
     try {
         const response = await fetch(`/api/calculator/${operation}?num1=${num1}&num2=${num2}`);
@@ -341,30 +374,138 @@ buttons.forEach(button => {
     button.addEventListener('click', async function() {
         let buttonText = button.innerHTML;
         
-        // Handle individual digits (0-9):
-        if (buttonText >= '0' && buttonText <= '9') {
+        // Numbers - checks for each digit
+        if (buttonText === '0') {
             input.value += buttonText;
             console.log('Added number:', buttonText);
         }
-        // Handle decimal point:
-        else if (buttonText === '.') {
+        else if (buttonText === '1') {
             input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '2') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '3') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '4') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '5') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '6') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '7') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '8') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        else if (buttonText === '9') {
+            input.value += buttonText;
+            console.log('Added number:', buttonText);
+        }
+        // Decimal point
+        else if (buttonText === '.') {
+            appendDot();
             console.log('Added decimal point');
         }
-        // Handle double zero:
+        // Double zero
         else if (buttonText === '00') {
-            input.value += buttonText;
+            appendDoubleZero();
             console.log('Added double zero');
         }
+        // Individual operator checks
         else if (buttonText === '+') {
-            firstNumber = input.value;
-            operator = buttonText;
-            input.value = "";
-            console.log('Selected addition operator');
+            setOperator(buttonText);
+            console.log('Operator selected:', buttonText);
         }
-    }); 
+        else if (buttonText === '-') {
+            setOperator(buttonText);
+            console.log('Operator selected:', buttonText);
+        }
+        else if (buttonText === '*') {
+            setOperator(buttonText);
+            console.log('Operator selected:', buttonText);
+        }
+        else if (buttonText === '/') {
+            setOperator(buttonText);
+            console.log('Operator selected:', buttonText);
+        }
+        else if (buttonText === '%') {
+            setOperator(buttonText);
+            console.log('Operator selected:', buttonText);
+        }
+        // Equals
+        else if (buttonText === '=') {
+            handleEquals();
+        }
+        // Clear
+        else if (buttonText === 'AC') {
+            clearAll();
+            console.log('Calculator cleared');
+        }
+        // Delete
+        else if (buttonText === 'DEL') {
+            backspace();
+            console.log('Deleted last character');
+        }
+        // Catch any unhandled buttons
+        else {
+            console.log('Unknown button:', buttonText);
+        }
+    });
 });
   
+
+
+// // Testing: 
+// // Console:
+// Added number: 1
+// Added number: 2
+// Added number: 3
+// Added number: 4
+// Added number: 5
+// Added number: 6
+// Added number: 7
+// Added number: 8
+// Added number: 9
+// Added number: 0
+// Added double zero
+// Operator selected: +
+// Operator selected: -
+// Operator selected: *
+// Operator selected: /
+// Operator selected: %
+// Deleted last character
+// Calculator cleared
+
+
+
+// Should I handle repeated operators? Like if someone clicks "+" then "-"?
+// What about edge cases? Like clicking "=" right after an operator?
+// Do I need validation? Like preventing multiple decimal points?
+// Missing =, AC, DEL, and some other operators... Need to update buttons before I can continue.
+// calculatorfunc.js:298 Uncaught ReferenceError: Cannot access 'input' before initialization at calculatorfunc.js:298:1
+// Struggling with simple debugging.. I need to reroute, I have buttons that are missing. 
+
+
+// I used a long if / else if / else chain for each button because that’s the clearest way for me to think right now. 
+// When I tried to be clever with || and &&, I honestly started confusing myself, cut corners, and created bugs I couldn’t trace. 
+// The longer way lets me see exactly which case runs, add a quick console.log, and set a breakpoint on that one path. MDN and javascript.info both teach plain if/else as the default for control flow, and freeCodeCamp encourages beginners to keep conditionals explicit before getting fancy. 
+// Style guides like Google and Airbnb also favor clarity. For me, the “long way” is the better way—clear, debuggable, and honest about where I am in my learning.
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 function setOperator(op) {
     // if user hits operator with empty display, assume 0 so firstNumber is valid
@@ -414,26 +555,10 @@ function setOperator(op) {
     input.value = input.value.slice(0, -1);
   }
 
-  // TESTING:
-input.value = "12345";
-backspace();
-console.log("Result:", input.value); // Console Results:  1234 Terminal Results: Empty
-
-// Uncaught SyntaxError: Identifier 'input' has already been declared (at calculatorfunc.js:424:5)
-// I made a few errors here, I redeclared Let, so I wasn't getting any resuslts.
-
-input.value = "7";
-backspace();
-console.log("Result:", input.value); // Console Results: Empty  Terminal Results: Empty
-
-input.value = "";
-backspace();
-console.log("Result:", input.value);  // Console Results: Empty  Terminal Results: Empty
 
 
-// I'm noticing some problems, my first issue is that my display is empty after backspace
-// When I backspace the last digit (like going from "7" to ""), most calculators show "0" instead of completely empty. 
-// My function leaves it empty.
+
+
 
 
 
