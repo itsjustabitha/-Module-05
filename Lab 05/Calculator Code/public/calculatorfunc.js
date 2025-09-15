@@ -417,15 +417,23 @@ function setOperator(op) {
   // TESTING:
 input.value = "12345";
 backspace();
-console.log("Result:", input.value); // Console Results:  1234 Terminal Results: Nothing
+console.log("Result:", input.value); // Console Results:  1234 Terminal Results: Empty
 
-//Uncaught SyntaxError: Identifier 'input' has already been declared (at calculatorfunc.js:424:5)
+// Uncaught SyntaxError: Identifier 'input' has already been declared (at calculatorfunc.js:424:5)
 // I made a few errors here, I redeclared Let, so I wasn't getting any resuslts.
 
 input.value = "7";
 backspace();
 console.log("Result:", input.value); // Console Results: Empty  Terminal Results: Empty
 
+input.value = "";
+backspace();
+console.log("Result:", input.value);  // Console Results: Empty  Terminal Results: Empty
+
+
+// I'm noticing some problems, my first issue is that my display is empty after backspace
+// When I backspace the last digit (like going from "7" to ""), most calculators show "0" instead of completely empty. 
+// My function leaves it empty.
 
 
 
@@ -433,9 +441,6 @@ console.log("Result:", input.value); // Console Results: Empty  Terminal Results
 
 
 
-
-
-// Console Results:   Terminal Results: 
 // Console Results:   Terminal Results: 
 // Console Results:   Terminal Results: 
 // Console Results:   Terminal Results: 
