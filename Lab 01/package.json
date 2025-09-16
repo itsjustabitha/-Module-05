@@ -1,0 +1,28 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Assignment: Exercise 1 - Slide 17 (Start on slide 10)",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsjustabitha/-Module-05.git"
+  },
+  "bugs": {
+    "url": "https://github.com/itsjustabitha/-Module-05/issues"
+  },
+  "homepage": "https://github.com/itsjustabitha/-Module-05#readme"
+}
