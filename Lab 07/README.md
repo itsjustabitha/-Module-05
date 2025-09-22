@@ -16,69 +16,121 @@ the ID of the caller, and the result. Log to the console every call made.
 .
 
 --- 
-I've reviewed your current code structure and I understand your preferences for maintaining the explicit if-else statements and arrow functions. Your code is well-organized and functional. Let me help you implement **Part 1** by creating a Calculator library that integrates with your existing structure without changing your coding style.
+## Part 1: Creating and Integrating Calculator Library
 
-First, let's create the Calculator library:Now, let's update your calculatorControllers.js to integrate with the Calculator library while maintaining your exact coding style:Now let's update your calculatorfunc.js to complete the handleEquals function so it works with the API:Finally, let's create your main server file (index.js) that ties everything together:## Summary of Changes Made
+### Initial Setup Issues
+Started with a basic Express application structure but ran into multiple module resolution errors when trying to implement the Calculator library integration.
 
-I've successfully integrated a Calculator library into your existing code structure while maintaining your preferences:
+** First Problem: File naming inconsistency **
+- My route file was trying to import ../controllers/calculatorControllers (with 's')
+- But my actual file was named calculatorController.js (without 's')
+- Had to rename the file to match the import statement
 
-### 1. **Created Calculator Library** (`Calculator Code/Calculator.js`)
-- Uses arrow functions as you prefer
-- Has private logging method using `#log`
-- Contains all mathematical operations (add, subtract, multiply, divide, modulo)
-- Creates unique ID using timestamp
-- Handles division by zero and modulo by zero errors
+**Second Problem: Missing Calculator library**
+- Controller was trying to import ../libraries/Calculator but the file didn't exist
+- Initially tried creating it in the wrong location - made libraries folder at project root instead of inside Calculator Code
+- Needed to create the proper directory structure: Calculator Code/libraries/Calculator.js
 
-### 2. **Updated Controller** (`controllers/calculatorControllers.js`)
-- Imports and creates an instance of the Calculator library
-- Maintains your exact coding style and structure
-- Now uses the library methods instead of direct calculations
-- Keeps all your existing error handling logic
+**Third Problem: Heredoc syntax issues in terminal**
+- Had trouble creating the Calculator.js file using cat > command
+- Terminal was throwing parse errors with the heredoc syntax
+- Eventually got it working by properly formatting the EOF delimiters
 
-### 3. **Enhanced Frontend** (`public/calculatorfunc.js`)
-- Completed the `handleEquals()` function to work with your API
-- Maintains all your explicit if-else statements
-- Uses arrow functions throughout
-- Added proper error handling and validation
+### Calculator Library Implementation
+Created Calculator Code/libraries/Calculator.js based on the course material requirements:
 
-### 4. **Added Main Server File** (`index.js`)
-- Serves your static files from the public directory
-- Sets up the API routes with `/api/calculator` prefix
-- Serves your calculator HTML at the root URL
+javascript
+class Calculator {
+    constructor() {
+        this.id = Date.now()  // Timestamp-based unique ID
+    }
 
-## Your Final Project Structure:
-```
-Lab 07/
-├── index.js
-├── package.json
-├── Calculator Code/
-│   └── Calculator.js
-├── Controllers/
-│   └── calculatorControllers.js
-├── Public/
-│   ├── calculatorfunc.js
-│   ├── calculatorstruct.html
-│   └── calculatorstyle.css
-└── Routes/
-    └── calculatorRoute.js
-```
+    #log = (value) => {  // Private method using # syntax
+        console.log([Calculator :${this.id}]:${value})
+    }
 
-## Key Benefits Achieved:
-1. **Separation of Concerns**: Calculator logic is now in its own library
-2. **Reusability**: The Calculator class can be used anywhere
-3. **Maintainability**: Each component has a single responsibility
-4. **Your Coding Style Preserved**: All explicit if-else statements and arrow functions maintained
+    // Public methods for each operation
+    add(num1, num2) {
+        const value = num1 + num2
+        this.#log(value)
+        return value;
+    }
+    // ... similar for subtract, multiply, divide, modulo
+}
 
-The calculator now uses the OOP library for all calculations while maintaining your exact coding preferences and structure. You can test it by running `npm start` and visiting `http://localhost:3000`.
+module.exports = Calculator  // ES6 export requirement
 
-Are you ready to move on to **Part 2** (implementing random ID generation)?
+
+** Key design decisions: **
+- Used timestamp (Date.now()) for unique ID as specified in course material
+- Implemented private #log method that can't be called externally
+- Each operation logs its result before returning
+- Added proper error handling in controller for division/modulo by zero
+
+### Controller Integration
+Updated Calculator Code/controllers/calculatorControllers.js to use the library:
+
+javascript
+const Calculator = require('../libraries/Calculator');
+const myCalc = new Calculator();  // Single instance
+
+const addNumbers = (req, res) => {
+    let number1 = parseInt(req.query.num1);
+    let number2 = parseInt(req.query.num2);
+    let sum = myCalc.add(number1, number2);  // Using library method
+    res.status(200);
+    res.json({result: sum});
+}
+
+** Integration approach: **
+- Created one Calculator instance to be shared across all controller functions
+- Replaced direct mathematical operations with library method calls
+- Maintained existing error handling logic for edge cases
+- Library handles logging automatically through private method
+
+### Express Route Configuration Issues
+** Fourth Problem: 404 handler syntax error**
+- Original code used app.use('*', ...) which caused a path parsing error
+- Error: PathError [TypeError]: Missing parameter name at index 1: *
+- Fixed by changing to app.use((req, res) => ...) without the asterisk
+
+### Final Server Setup
+Main index.js configuration:
+javascript
+app.use('/api/calculator', calculatorRoute);  // API prefix
+app.use(express.static(path.join(__dirname, 'public')));  // Static files
+
+
+** Routing structure: **
+- API endpoints available at /api/calculator/add, /api/calculator/subtract, etc.
+- Static HTML/CSS/JS served from public directory
+- Proper error handling middleware
+
+### Testing and Verification
+Server now runs successfully on port 3000. Can test endpoints like:
+- http://localhost:3000/api/calculator/add?num1=5&num2=3
+- Console shows Calculator logging: [Calculator :1727024567890]:8
+
+** Questions that came up during implementation: **
+- Why use private methods with # syntax instead of regular methods?
+- How does the module.exports work with ES6 imports?
+- Should we create new Calculator instances for each request or reuse one?
+
+** Sources referenced: **
+- Module 5 lab 07.pdf for Calculator class structure
+- Express.js documentation for proper route syntax
+- Node.js module system documentation for require/exports
+
+### Part 1 Status: Complete
+Successfully implemented separation of concerns with Calculator library handling all mathematical operations while controller focuses on HTTP request/response handling.
 --- 
+# Lab 07 - Slide 74
 
-
---- 
-
-
---- 
-
-
----
+# Instructions: 
+Part 2 : Change the library so that you can generate a random number to be used as the ID, instead
+of the time. This way it will be almost impossible to have two of the same objects with the same
+ID.
+.
+.
+.
+.
