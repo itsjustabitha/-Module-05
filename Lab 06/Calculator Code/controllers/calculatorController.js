@@ -1,66 +1,110 @@
+// Calculator Code/controllers/calculatorController.js
+
+// ADD
 const addNumbers = (req, res) => {
-    let number1 = parseInt(req.query.num1);
-    let number2 = parseInt(req.query.num2);
-    let sum = number1 + number2
-    console.log(sum)
-    res.status(200)
-    res.json({result:sum})
+    const number1 = parseInt(req.query.num1, 10);
+    const number2 = parseInt(req.query.num2, 10);
+  
+    if (Number.isNaN(number1)) {
+      return res.status(400).json({ error: 'Invalid integers: num1' });
+    } else {
+      if (Number.isNaN(number2)) {
+        return res.status(400).json({ error: 'Invalid integers: num2' });
+      } else {
+        const sum = number1 + number2;
+        console.log(sum);
+        return res.status(200).json({ result: sum });
+      }
     }
-
-    const subtractNumbers = (req, res) => {
-        let number1 = parseInt(req.query.num1);
-        let number2 = parseInt(req.query.num2);
-        let difference = number1 - number2;
+  };
+  
+  // SUBTRACT
+  const subtractNumbers = (req, res) => {
+    const number1 = parseInt(req.query.num1, 10);
+    const number2 = parseInt(req.query.num2, 10);
+  
+    if (Number.isNaN(number1)) {
+      return res.status(400).json({ error: 'Invalid integers: num1' });
+    } else {
+      if (Number.isNaN(number2)) {
+        return res.status(400).json({ error: 'Invalid integers: num2' });
+      } else {
+        const difference = number1 - number2;
         console.log(difference);
-        res.status(200);
-        res.json({ result: difference });
-    };
-
-    const multiplyNumbers = (req, res) => {
-        let number1 = parseInt(req.query.num1);
-        let number2 = parseInt(req.query.num2);
-        let product = number1 * number2;
+        return res.status(200).json({ result: difference });
+      }
+    }
+  };
+  
+  // MULTIPLY
+  const multiplyNumbers = (req, res) => {
+    const number1 = parseInt(req.query.num1, 10);
+    const number2 = parseInt(req.query.num2, 10);
+  
+    if (Number.isNaN(number1)) {
+      return res.status(400).json({ error: 'Invalid integers: num1' });
+    } else {
+      if (Number.isNaN(number2)) {
+        return res.status(400).json({ error: 'Invalid integers: num2' });
+      } else {
+        const product = number1 * number2;
         console.log(product);
-        res.status(200);
-        res.json({ result: product });
-    };
-
-    const divideNumbers = (req, res) => {
-        let number1 = parseInt(req.query.num1);
-        let number2 = parseInt(req.query.num2);
-    
+        return res.status(200).json({ result: product });
+      }
+    }
+  };
+  
+  // DIVIDE
+  const divideNumbers = (req, res) => {
+    const number1 = parseInt(req.query.num1, 10);
+    const number2 = parseInt(req.query.num2, 10);
+  
+    if (Number.isNaN(number1)) {
+      return res.status(400).json({ error: 'Invalid integers: num1' });
+    } else {
+      if (Number.isNaN(number2)) {
+        return res.status(400).json({ error: 'Invalid integers: num2' });
+      } else {
         if (number2 === 0) {
-            console.log("Error: divide by zero");
-            res.status(400);
-            return res.json({ error: "Cannot divide by zero" });
+          console.log('Error: divide by zero');
+          return res.status(400).json({ error: 'Cannot divide by zero' });
+        } else {
+          const quotient = number1 / number2; // integer ÷ integer
+          console.log(quotient);
+          return res.status(200).json({ result: quotient });
         }
-    
-        let quotient = number1 / number2;
-        console.log(quotient);
-        res.status(200);
-        res.json({ result: quotient });
-    };
-
-    const moduloNumbers = (req, res) => {
-        let number1 = parseInt(req.query.num1);
-        let number2 = parseInt(req.query.num2);
-        
+      }
+    }
+  };
+  
+  // MODULO
+  const moduloNumbers = (req, res) => {
+    const number1 = parseInt(req.query.num1, 10);
+    const number2 = parseInt(req.query.num2, 10);
+  
+    if (Number.isNaN(number1)) {
+      return res.status(400).json({ error: 'Invalid integers: num1' });
+    } else {
+      if (Number.isNaN(number2)) {
+        return res.status(400).json({ error: 'Invalid integers: num2' });
+      } else {
         if (number2 === 0) {
-            console.log("Error: modulo by zero");
-            res.status(400);
-            return res.json({ error: "Cannot perform modulo by zero" });
+          console.log('Error: modulo by zero');
+          return res.status(400).json({ error: 'Cannot modulo by zero' });
+        } else {
+          const remainder = number1 % number2;
+          console.log(remainder);
+          return res.status(200).json({ result: remainder });
         }
-        
-        let remainder = number1 % number2;
-        console.log(remainder);
-        res.status(200);
-        res.json({ result: remainder });
-    };
-
-    module.exports = {
-        addNumbers,
-        subtractNumbers,
-        multiplyNumbers,
-        divideNumbers,
-        moduloNumbers,
-        }
+      }
+    }
+  };
+  
+  module.exports = {
+    addNumbers,
+    subtractNumbers,
+    multiplyNumbers,
+    divideNumbers,
+    moduloNumbers,
+  };
+  

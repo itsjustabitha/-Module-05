@@ -1,6 +1,5 @@
 const express = require('express');
-const calculatorController = require('../controllers/calculatorController');
-
+const calculatorController = require('../controllers/calculatorController'); 
 const router = express.Router();
 
 // Addition route
