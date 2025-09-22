@@ -15,7 +15,6 @@ the ID of the caller, and the result. Log to the console every call made.
 .
 .
 
---- 
 ## Part 1: Creating and Integrating Calculator Library
 
 ### Initial Setup Issues
@@ -26,12 +25,12 @@ Started with a basic Express application structure but ran into multiple module 
 - But my actual file was named calculatorController.js (without 's')
 - Had to rename the file to match the import statement
 
-**Second Problem: Missing Calculator library**
+** Second Problem: Missing Calculator library **
 - Controller was trying to import ../libraries/Calculator but the file didn't exist
 - Initially tried creating it in the wrong location - made libraries folder at project root instead of inside Calculator Code
 - Needed to create the proper directory structure: Calculator Code/libraries/Calculator.js
 
-**Third Problem: Heredoc syntax issues in terminal**
+** Third Problem: Heredoc syntax issues in terminal **
 - Had trouble creating the Calculator.js file using cat > command
 - Terminal was throwing parse errors with the heredoc syntax
 - Eventually got it working by properly formatting the EOF delimiters
@@ -59,7 +58,6 @@ class Calculator {
 }
 
 module.exports = Calculator  // ES6 export requirement
-
 
 ** Key design decisions: **
 - Used timestamp (Date.now()) for unique ID as specified in course material
@@ -89,7 +87,7 @@ const addNumbers = (req, res) => {
 - Library handles logging automatically through private method
 
 ### Express Route Configuration Issues
-** Fourth Problem: 404 handler syntax error**
+** Fourth Problem: 404 handler syntax error **
 - Original code used app.use('*', ...) which caused a path parsing error
 - Error: PathError [TypeError]: Missing parameter name at index 1: *
 - Fixed by changing to app.use((req, res) => ...) without the asterisk
@@ -130,6 +128,77 @@ Successfully implemented separation of concerns with Calculator library handling
 Part 2 : Change the library so that you can generate a random number to be used as the ID, instead
 of the time. This way it will be almost impossible to have two of the same objects with the same
 ID.
+.
+.
+.
+.
+
+# Change Required
+Part 2 asked me to update the Calculator library so the ID was a random number instead of a timestamp. The goal was to reduce the chance of two Calculator objects ending up with the same ID.
+
+ ** Navigation Issue: **
+- I first tried creating the file from the wrong directory. I was in /Mod 05/ instead of inside the libraries folder. Fixed it by moving step by step:
+
+- cd "Lab 07"
+- cd "Calculator Code"
+- cd "libraries"
+- pwd   // confirmed location
+
+
+** Code Modification: **
+- Updated the constructor in Calculator.js:
+
+// Before
+this.id = Date.now();
+
+// After
+this.id = Math.floor(Math.random() * 1000000);
+
+
+# Reasoning
+
+- Timestamps are predictable and if objects are created close together, IDs can collide.
+
+- Random numbers in the range 0–999,999 give a million possible IDs and make duplicates unlikely.
+
+- Math.random() generates a decimal between 0 and 1. Multiplying by 1,000,000 scales it. Math.floor() rounds it down to an integer.
+
+# Testing
+- Restarted server with node index.js.
+Ran: curl "http://localhost:3000/api/calculator/add?num1=7&num2=4"
+
+Server logs now show random IDs like [Calculator:347821]: 11 instead of timestamp IDs. JSON response stayed the same:
+
+{"result":11}
+
+
+# Open Questions
+
+- How random is Math.random() in Node.js, and is it secure?
+
+- What happens if two objects get the same random ID?
+
+- Should the range be larger in production?
+
+- Should IDs be validated for uniqueness across instances?
+
+- Other Options Considered
+
+- Larger range (Math.random() * 10000000)
+
+- Alphanumeric IDs with toString(36)
+
+- Random plus timestamp hybrid
+
+# Status
+Change complete. Calculator instances now use random IDs instead of timestamps, with existing functionality preserved.
+---
+
+# Lab 07 - Slide 74
+
+# Instructions: 
+Part 3 : Create a generic library for logging - pass a message to be logged, this will contain at least
+the ID of the caller, and the result. Log to the console every call made.
 .
 .
 .
