@@ -203,3 +203,120 @@ the ID of the caller, and the result. Log to the console every call made.
 .
 .
 .
+## Part 3: Creating Generic Logging Library
+
+### Requirement
+
+I needed to create a generic logging library that could accept a caller’s ID and a message, then log calls to the console. The idea was to move logging out of the Calculator class and make it reusable across different classes.
+
+### Why Logger Was Needed
+
+Previously, Calculator had its own private #log method. This caused problems:
+
+* Logging was tied only to Calculator. Other classes would need their own logging code.
+* The format wasn’t standardized, so each class could log differently.
+* Any change to logging behavior meant editing multiple files.
+* It violated separation of concerns. Business logic and logging were mixed together.
+
+A Logger library fixed these issues by:
+
+* Acting as a single source of truth for all logging.
+* Enforcing consistent format across all classes.
+* Making changes easier since logging code now lives in one place.
+* Allowing reuse in future modules beyond Calculator.
+
+### Implementation
+
+**Step 1: Create Logger.js**
+I created libraries/Logger.js and added two methods:
+
+js
+class Logger {
+    log(callerId, message) {
+        const timestamp = new Date().toISOString();
+        console.log([${timestamp}] [Caller:${callerId}] ${message});
+    }
+
+    logResult(callerId, operation, result) {
+        const timestamp = new Date().toISOString();
+        console.log([${timestamp}] [Caller:${callerId}] Operation: ${operation}, Result: ${result});
+    }
+}
+
+module.exports = Logger;
+
+
+Decisions:
+
+* Used Date().toISOString() for a standard timestamp format.
+* Required callerId to be passed in instead of generated internally.
+* Kept a general-purpose log and a specialized logResult.
+
+**Step 2: Refactor Calculator.js**
+Removed the private #log method. Added Logger integration:
+
+js
+const Logger = require('./Logger');
+
+class Calculator {
+    constructor() {
+        this.id = Math.floor(Math.random() * 1000000);
+        this.logger = new Logger();
+    }
+
+    add(a, b) {
+        const value = a + b;
+        this.logger.logResult(this.id, 'ADD', value);
+        return value;
+    }
+}
+
+
+Key changes:
+
+* Imported Logger with require.
+* Instantiated new Logger() in the constructor.
+* Replaced all #log calls with this.logger.logResult(...).
+* Operation names made explicit: ADD, SUBTRACT, MULTIPLY, DIVIDE.
+
+### Technical Notes
+
+* Exported Logger with module.exports and imported with require, following Node’s CommonJS system.
+* Logs now include timestamp, caller ID, operation, and result.
+* Old format: [Calculator:347821]:8
+* New format: [2024-09-22T20:15:30.123Z] [Caller:347821] Operation: ADD, Result: 8
+
+### Problems and Questions
+
+* Initially tried keeping logging inside Calculator, but realized it broke reusability.
+* Considered giving Logger its own ID, but unnecessary for now.
+* Asked whether toISOString() was the best format—kept it for readability and standardization.
+* Wondered if we should validate callerId or add log levels (INFO, ERROR).
+* Thought about scale: multiple Calculator instances all writing to the same console.
+
+### Testing
+
+Restarted the server after adding Logger. Ran:
+
+
+curl "http://localhost:3000/api/calculator/add?num1=9&num2=6"
+
+
+Output:
+
+
+[2024-09-22T20:15:30.123Z] [Caller:347821] Operation: ADD, Result: 15
+
+
+This confirmed logging worked as expected.
+
+### Sources Used
+
+* Module 5 Lab 07 PDF (separation of concerns requirement).
+* Node.js CommonJS docs (import/export).
+* MDN docs on Date.toISOString().
+* General OOP principles (single responsibility, separation of concerns).
+
+### Status
+
+Logger library complete. Logging is now centralized, reusable, consistent, and easy to maintain.
